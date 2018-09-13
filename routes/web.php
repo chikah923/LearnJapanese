@@ -12,10 +12,11 @@
 */
 
 Route::get('/', function () {
-    return view('layout/index');
+    return view('layouts/index');
 });
-Route::view('/languages', 'questions/languages');
-Route::post('/languages/questions', 'QuestionController@getQuestion');
+Route::view('/questions','questions/start');
+Route::post('/questions/start', 'QuestionController@getQuestion');
+Route::post('/questions/answer', 'QuestionController@postUnswer');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

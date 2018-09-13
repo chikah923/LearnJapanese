@@ -1,6 +1,7 @@
 語彙の練習問題
 
-<form method="post" action="/languages/questions">
+<form method="post" action="/questions/start">
+{{ csrf_field() }}
 <p>問題数の設定<br>
 <input type="radio" name="qs" value="1">10問
 <input type="radio" name="qs" value="2">20問

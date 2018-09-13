@@ -1,0 +1,18 @@
+問題番号
+{{ question.question }}
+<br><br>
+
+<form method="post" action="/questions/answer">
+{{ csrf_field() }}
+<input type="hidden" name="question_answer" value="{{ question.answer }}">
+<input type="hidden" name="question_id" value="{{ question.id }}">
+<input type="radio" name="user_answer" value="1">1. {{ question.option_1 }}
+<br>
+<input type="radio" name="user_answer" value="2">2. {{ question.option_2 }}
+<br>
+<input type="radio" name="user_answer" value="3">3. {{ question.option_3 }}
+<br>
+<input type="radio" name="user_answer" value="4">4. {{ question.option_4 }}
+<br>
+<p><input type="submit" value="回答する"></p>
+</form>

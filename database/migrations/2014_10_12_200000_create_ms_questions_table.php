@@ -17,6 +17,7 @@ class CreateMsQuestionsTable extends Migration
             $table->increments('id')->comment('管理ID');
             $table->unsignedInteger('level')->comment('問題レベル');
             $table->unsignedInteger('category')->comment('問題カテゴリ');
+            $table->unsignedInteger('sub_category')->comment('問題サブカテゴリ');
             $table->text('question')->comment('問題文');
             $table->string('option_1', 255)->comment('選択肢1');
             $table->string('option_2', 255)->comment('選択肢2');
