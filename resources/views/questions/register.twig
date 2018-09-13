@@ -1,0 +1,50 @@
+Register Questions
+<form action="/register_questions" method="post">
+{{ csrf_field() }}
+<p>
+問題カテゴリ：<select name="category">
+<option value="1">文字</option>
+<option value="2">語彙</option>
+<option value="3">文法</option>
+<option value="4">読解</option>
+<option value="5">聴解</option>
+</select>
+</p>
+
+<p>
+問題文：<input type="text" name="question" size="40">
+</p>
+
+<p>
+選択肢１：<input type="text" name="option_1" size="40">
+</p>
+
+<p>
+選択肢２：<input type="text" name="option_2" size="40">
+</p>
+
+<p>
+選択肢３：<input type="text" name="option_3" size="40">
+</p>
+
+<p>
+選択肢４：<input type="text" name="option_4" size="40">
+</p>
+
+正解：<select name="answer">
+<option value="1">１</option>
+<option value="2">２</option>
+<option value="3">３</option>
+<option value="4">４</option>
+<option value="5">５</option>
+</select>
+</p>
+
+<p>
+説明文：<br>
+<textarea name="explanation" rows="4" cols="40"></textarea>
+</p>
+<p>
+<input type="submit" value="問題登録">
+</p>
+</form>
