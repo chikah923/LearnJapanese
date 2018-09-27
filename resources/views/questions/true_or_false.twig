@@ -11,4 +11,17 @@
 
 <br><br>
 この問題をノートに登録する
+<br><br>
 
+{% if last_question_flag == false  %}
+<form method="post" action="/questions/next">
+{{ csrf_field() }}
+<input type="hidden" name="created_at" value="{{ created_at }}">
+<p><input type="submit" value="次の問題へ"></p>
+</form>
+{% else %}
+<form method="post" action="/questions/result">
+{{ csrf_field() }}
+<input type="hidden" name="created_at" value="{{ created_at }}">
+<p><input type="submit" value="総合評価"></p>
+{% endif %}

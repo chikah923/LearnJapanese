@@ -4,7 +4,7 @@ namespace App\Models\Db;
 
 use Illuminate\Database\Eloquent\Model;
 
-class MsQuestion extends Model
+class Question extends Model
 {
     protected $fillable = ['level', 'category', 'sub_category', 'question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer','explanation'];
 
@@ -13,16 +13,13 @@ class MsQuestion extends Model
         return self::findOrFail($id);
     }
 
-    public static function getByUserConfig($input)
+    public static function getByUserConfig($amount, $category)
     {
-
-        $a = self::where('level', 1)
-                //->where('category', 1)とりあえずsub_categoryは見ずに選ぶ
+        return self::where('level', 1) //ログインユーザのレベルを分けた際に指定
+                ->where('category', $category)
                 ->inRandomOrder()
-                //->limit($input['qs']) //key指定しないと取れない?tokenがついてくるが省いていいか
-                ->limit(1)
+                ->limit($amount)
                 ->get();
-        return $a;
     }
 
 }

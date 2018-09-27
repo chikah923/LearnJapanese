@@ -14,9 +14,10 @@
 Route::get('/', function () {
     return view('layouts/index');
 });
-Route::view('/questions','questions/start');
-Route::post('/questions/start', 'QuestionController@getQuestion');
-Route::post('/questions/answer', 'QuestionController@postUnswer');
+Route::get('/questions','QuestionController@showConfiguration');
+Route::post('/questions/start', 'QuestionController@getFirstQuestion');
+Route::post('/questions/answer', 'QuestionController@postAnswer');
+Route::post('/questions/next', 'QuestionController@getQuestionFromSecond');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

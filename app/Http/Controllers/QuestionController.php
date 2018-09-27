@@ -4,34 +4,49 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Repositories\QuestionRepository;
+use App\Repositories\QuestionContentRepository;
+use Carbon\Carbon;
 
 class QuestionController
 {
     private $question_repository;
+    private $question_content_repository;
 
-    public function __construct(QuestionRepository $question_repository)
+    public function __construct(QuestionRepository $question_repository, QuestionContentRepository $question_content_repository)
     {
         $this->question_repository = $question_repository;
+        $this->question_content_repository = $question_content_repository;
     }
 
-    public function getQuestion(Request $request)
+    public function showConfiguration(Request $request)
     {
-        $input = $request->all();
-        $questions = $this->question_repository->getByUserConfig($input);
-        //ユーザの設定した問題数を取ってくることはできたがどこに保持しておくか
-        //出題履歴としてテーブルに残す?->あとあと何の問題やったか見れるが
-        //ユーザ増えると容量がすごいことになるのでできれば他の方法で保持したい
-        //とりあえず一問回答したときの処理を先に書く
-        //レベル、カテゴリをどう受け取るか
-        //それか、すべての問題を1ページにして返す　それぞれの問題に回答ボタンを置いてjsで解答表示　そのほうが実際の筆記試験に似てる
-        $question = $questions->toArray();
-
-        return view ('questions.show')->with([
-            'question' => $questions[0],
+        return view ('questions.configuration')->with([
+            'category' => $request->query('category'), //クエリパラメータから取得　あとでバリデーション
         ]);
     }
 
-    public function postUnswer(Request $request)
+    public function getFirstQuestion(Request $request)
+    {
+        $input = $request->all();
+        $amount = (int)array_get($input, 'amount');
+        $category = (int)array_get($input, 'category');
+        $questions = $this->question_repository->getByUserConfig($amount, $category);
+
+        $question_number = 0;
+        foreach ($questions as $question) {
+            $question_number++;
+            $this->question_content_repository->saveContent($question, $question_number); //あとでuser_idも
+        }
+        $created_at = Carbon::now();
+
+        return view('questions.show')->with([
+            'question' => $questions[0],
+            'question_number' => 1,
+            'created_at' => $created_at,
+        ]);
+    }
+
+    public function postAnswer(Request $request)
     {
         $input = $request->all();
         $true_or_false = false;
@@ -40,11 +55,31 @@ class QuestionController
         }
         $question = $this->question_repository->getById($input['question_id']);
 
-        //誤答の場合、userと紐付けて問題をDBに登録
+        //question_contentsテーブルにtrue_or_falseを一問ずつ保存
+        $question_content = $this->question_content_repository->getByCreatedAt($input['created_at']); //Auth::user()->idのタイミング
+        $last_question_flag = false;
+        if (is_null($question_content)) {
+            $last_question_flag = true;
+        }
+        $this->question_content_repository->saveTrueOrFalse($question_content, $true_or_false);
 
         return view ('questions.true_or_false')->with([
             'true_or_false' => $true_or_false,
             'question' => $question,
+            'created_at' => $input['created_at'],
+            'last_question_flag' => $last_question_flag,
+        ]);
+    }
+
+    public function getQuestionFromSecond(Request $request)
+    {
+        $input = $request->all();
+        $question_content = $this->question_content_repository->getByCreatedAt($input['created_at']); //Auth::user()->idのタイミング
+dd($question_content->question());
+        return view('questions.show')->with([
+            'question' => $question_content->question(),
+            'question_number' => $question_content->question_number,
+            'created_at' => $input['created_at'],
         ]);
     }
 

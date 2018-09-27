@@ -1,0 +1,13 @@
+{{ config('masters.questions.'~category) }}の練習問題
+<br><br>
+
+<form method="post" action="/questions/start">
+{{ csrf_field() }}
+<input type="hidden" name="category" value="{{ category }}">
+<p>問題数の設定<br>
+<input type="radio" name="amount" value="1">10問
+<input type="radio" name="amount" value="2">20問
+<input type="radio" name="amount" value="3">30問
+</p>
+<p><input type="submit" value="設定を保存して問題を開始"></p>
+</form>
