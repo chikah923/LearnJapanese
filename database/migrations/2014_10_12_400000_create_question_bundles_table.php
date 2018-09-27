@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuestionContentsTable extends Migration
+class CreateQuestionBundlesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateQuestionContentsTable extends Migration
      */
     public function up()
     {
-        Schema::create('question_contents', function (Blueprint $table) {
+        Schema::create('question_bundles', function (Blueprint $table) {
             $table->increments('id')->comment('管理ID');
-            $table->unsignedInteger('bundle_id')->comment('バンドルID');
-            $table->unsignedInteger('question_id')->comment('問題ID');
-            $table->unsignedInteger('question_number')->comment('問題番号');
+            $table->unsignedInteger('amount')->comment('問題数');
+            $table->unsignedInteger('category')->comment('問題カテゴリ');
             $table->unsignedInteger('user_id')->comment('ユーザID');
+            $table->unsignedInteger('correct_number')->comment('正答数');
             $table->timestamps();
         });
     }

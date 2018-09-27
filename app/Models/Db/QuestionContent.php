@@ -6,27 +6,40 @@ use Illuminate\Database\Eloquent\Model;
 
 class QuestionContent extends Model
 {
-    protected $fillable = ['question_id', 'question_number', 'user_id', 'true_or_false'];
+    protected $guarded = [];
 
     public function question()
     {
-        return $this->hasOne(Question::class);
+        return $this->belongsTo(Question::class);
     }
 
-    public static function getByCreatedAt($created_at)
+    public function question_bundle()
     {
-        return self::where('user_id', 1) //とりあえず
-                ->where('created_at', $created_at)
+        return $this->belongsTo(QuestionBundle::class);
+    }
+
+    public static function getByBundleId($question_bundle_id, $user_id = 1)
+    {
+        return self::where('user_id', $user_id) //とりあえず
+                ->where('question_bundle_id', $question_bundle_id)
                 ->whereNull('true_or_false')
                 ->first();
     }
 
-    public static function saveContent($question, $question_number)
+    public static function saveContent($question_bundle, $question, $question_number, $user_id = 1)
     {
             self::create([
+                'question_bundle_id' => $question_bundle->id,
                 'question_id' => $question->id,
                 'question_number' => $question_number,
-                'user_id' => 1, //とりあえず
+                'user_id' => $user_id, //とりあえず
             ]);
+    }
+
+    public static function getCorrectAnswerNumber($question_bundle_id)
+    {
+        return self::where('question_bundle_id', $question_bundle_id)
+                ->where('true_or_false', true)
+                ->count();
     }
 }

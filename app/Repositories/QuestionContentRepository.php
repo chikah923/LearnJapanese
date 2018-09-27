@@ -12,13 +12,18 @@ class QuestionContentRepository
         $question_content->update();
     }
 
-    public function getByCreatedAt($created_at)
+    public function getByBundleId($question_bundle_id)
     {
-        return QuestionContent::getByCreatedAt($created_at);
+        return QuestionContent::getByBundleId($question_bundle_id);
     }
 
-    public function saveContent($question, $question_number)
+    public function saveContent($question_bundle, $question, $question_number)
     {
-        QuestionContent::saveContent($question, $question_number);
+        QuestionContent::saveContent($question_bundle, $question, $question_number);
+    }
+
+    public function getCorrectAnswerNumber($question_bundle_id)
+    {
+        return QuestionContent::getCorrectAnswerNumber($question_bundle_id);
     }
 }

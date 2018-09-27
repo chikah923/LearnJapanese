@@ -18,6 +18,7 @@ Route::get('/questions','QuestionController@showConfiguration');
 Route::post('/questions/start', 'QuestionController@getFirstQuestion');
 Route::post('/questions/answer', 'QuestionController@postAnswer');
 Route::post('/questions/next', 'QuestionController@getQuestionFromSecond');
+Route::post('/questions/result', 'QuestionController@getResult');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');

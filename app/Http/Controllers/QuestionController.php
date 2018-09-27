@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Repositories\QuestionRepository;
 use App\Repositories\QuestionContentRepository;
+use App\Repositories\QuestionBundleRepository;
 use Carbon\Carbon;
 
 class QuestionController
@@ -12,10 +14,14 @@ class QuestionController
     private $question_repository;
     private $question_content_repository;
 
-    public function __construct(QuestionRepository $question_repository, QuestionContentRepository $question_content_repository)
-    {
+    public function __construct(
+        QuestionRepository $question_repository,
+        QuestionContentRepository $question_content_repository,
+        QuestionBundleRepository $question_bundle_repository
+    ) {
         $this->question_repository = $question_repository;
         $this->question_content_repository = $question_content_repository;
+        $this->question_bundle_repository = $question_bundle_repository;
     }
 
     public function showConfiguration(Request $request)
@@ -30,19 +36,20 @@ class QuestionController
         $input = $request->all();
         $amount = (int)array_get($input, 'amount');
         $category = (int)array_get($input, 'category');
+        //$user_id = Autn::user();
+        $question_bundle = $this->question_bundle_repository->saveQuestionBundle($amount, $category); //user_idあとで
         $questions = $this->question_repository->getByUserConfig($amount, $category);
 
         $question_number = 0;
         foreach ($questions as $question) {
             $question_number++;
-            $this->question_content_repository->saveContent($question, $question_number); //あとでuser_idも
+            $this->question_content_repository->saveContent($question_bundle, $question, $question_number); //あとでuser_idも
         }
-        $created_at = Carbon::now();
 
         return view('questions.show')->with([
             'question' => $questions[0],
             'question_number' => 1,
-            'created_at' => $created_at,
+            'question_bundle_id' => $question_bundle->id,
         ]);
     }
 
@@ -56,17 +63,20 @@ class QuestionController
         $question = $this->question_repository->getById($input['question_id']);
 
         //question_contentsテーブルにtrue_or_falseを一問ずつ保存
-        $question_content = $this->question_content_repository->getByCreatedAt($input['created_at']); //Auth::user()->idのタイミング
+        $question_content = $this->question_content_repository->getByBundleId($input['question_bundle_id']); //Auth::user()->idのタイミング
+        $this->question_content_repository->saveTrueOrFalse($question_content, $true_or_false);
+        $new_question_content = $this->question_content_repository->getByBundleId($input['question_bundle_id']);
+
         $last_question_flag = false;
-        if (is_null($question_content)) {
+        if (is_null($new_question_content)) {
             $last_question_flag = true;
         }
-        $this->question_content_repository->saveTrueOrFalse($question_content, $true_or_false);
 
         return view ('questions.true_or_false')->with([
+            'question_number' => $question_content->question_number,
             'true_or_false' => $true_or_false,
             'question' => $question,
-            'created_at' => $input['created_at'],
+            'question_bundle_id' => $input['question_bundle_id'],
             'last_question_flag' => $last_question_flag,
         ]);
     }
@@ -74,13 +84,24 @@ class QuestionController
     public function getQuestionFromSecond(Request $request)
     {
         $input = $request->all();
-        $question_content = $this->question_content_repository->getByCreatedAt($input['created_at']); //Auth::user()->idのタイミング
-dd($question_content->question());
+        $question_content = $this->question_content_repository->getByBundleId($input['question_bundle_id']); //Auth::user()->idのタイミング
         return view('questions.show')->with([
-            'question' => $question_content->question(),
+            'question' => $question_content->question,
             'question_number' => $question_content->question_number,
-            'created_at' => $input['created_at'],
+            'question_bundle_id' => $input['question_bundle_id'],
         ]);
+    }
+
+    public function getResult(Result $result)
+    {
+        $input = $request->all();
+        $correct_answer = $this->question_content_repository->getCorrectAnswerNumber($input['question_bundle_id']);
+        $question_bundle_amunt = $this->question_bundle_repository->save
+        //save
+        return view('questions.result')->with([
+            'amount' => $,
+            'correct_answer' => $correct_answer,
+        ])
     }
 
     public function registerQuestion(Request $request)

@@ -1,3 +1,5 @@
+問題番号{{ question_number }}
+<br><br>
 {% if true_or_false == true %}
 正解です！
 {% else %}
@@ -7,7 +9,7 @@
 <br><br>
 解説
 <br>
-{{ question.explanation  }}
+{{ question.explanation }}
 
 <br><br>
 この問題をノートに登録する
@@ -16,12 +18,12 @@
 {% if last_question_flag == false  %}
 <form method="post" action="/questions/next">
 {{ csrf_field() }}
-<input type="hidden" name="created_at" value="{{ created_at }}">
+<input type="hidden" name="question_bundle_id" value="{{ question_bundle_id }}">
 <p><input type="submit" value="次の問題へ"></p>
 </form>
-{% else %}
+{% elseif last_question_flag == true %}
 <form method="post" action="/questions/result">
 {{ csrf_field() }}
-<input type="hidden" name="created_at" value="{{ created_at }}">
+<input type="hidden" name="question_bundle_id" value="{{ question_bundle_id }}">
 <p><input type="submit" value="総合評価"></p>
 {% endif %}
