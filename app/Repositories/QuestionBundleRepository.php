@@ -10,4 +10,9 @@ class QuestionBundleRepository
     {
         return QuestionBundle::saveQuestionBundle($amount, $category);
     }
+
+    public function saveCorrectAnswerNumber($question_bundle_id, $correct_answer)
+    {
+        return QuestionBundle::saveCorrectAnswerNumber($question_bundle_id, $correct_answer);
+    }
 }

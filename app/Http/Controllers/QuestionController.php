@@ -27,7 +27,8 @@ class QuestionController
     public function showConfiguration(Request $request)
     {
         return view ('questions.configuration')->with([
-            'category' => $request->query('category'), //クエリパラメータから取得　あとでバリデーション
+            //'category' => trans('questions.'. $request->query('category')), //クエリパラメータから取得　あとでバリデーション
+            'category' => $request->query('category'),
         ]);
     }
 
@@ -92,16 +93,17 @@ class QuestionController
         ]);
     }
 
-    public function getResult(Result $result)
+    public function getResult(Request $request)
     {
-        $input = $request->all();
+        $input = $request->all(); //question_bundle_idしか使わないけどallの方がいい?
         $correct_answer = $this->question_content_repository->getCorrectAnswerNumber($input['question_bundle_id']);
-        $question_bundle_amunt = $this->question_bundle_repository->save
-        //save
+        $question_bundle = $this->question_bundle_repository->saveCorrectAnswerNumber($input['question_bundle_id'], $correct_answer);
+
         return view('questions.result')->with([
-            'amount' => $,
+            'amount' => $question_bundle->amount,
+            'category' => $question_bundle->category,
             'correct_answer' => $correct_answer,
-        ])
+        ]);
     }
 
     public function registerQuestion(Request $request)

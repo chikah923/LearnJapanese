@@ -21,4 +21,12 @@ class QuestionBundle extends Model
             'user_id' => $user_id,
         ]);
     }
+
+    public static function saveCorrectAnswerNumber($question_bundle_id, $correct_answer)
+    {
+        $question_bundle = self::findOrFail($question_bundle_id);
+        $question_bundle->correct_number = $correct_answer;
+        $question_bundle->update();
+        return $question_bundle;
+    }
 }

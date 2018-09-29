@@ -1,4 +1,6 @@
-{{ config('masters.questions.'~category) }}の練習問題
+{{trans('questions.category.'.category )}}
+
+{{ category }}の練習問題
 <br><br>
 
 <form method="post" action="/questions/start">
