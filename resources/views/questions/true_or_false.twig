@@ -1,3 +1,10 @@
+{% extends('layouts/auth_default') %}
+
+{% block title %}{{ category_lang }}の練習問題{% endblock %}
+
+{% block content %}
+
+<h4>
 問題番号{{ question_number }}
 <br><br>
 {% if true_or_false == true %}
@@ -14,16 +21,19 @@
 <br><br>
 この問題をノートに登録する
 <br><br>
+</h4>
 
 {% if last_question_flag == false  %}
 <form method="post" action="/questions/next">
 {{ csrf_field() }}
 <input type="hidden" name="question_bundle_id" value="{{ question_bundle_id }}">
-<p><input type="submit" value="次の問題へ"></p>
+<p><input type="submit" value="次の問題へ" class="btn btn-info"></p>
 </form>
 {% elseif last_question_flag == true %}
 <form method="post" action="/questions/result">
 {{ csrf_field() }}
 <input type="hidden" name="question_bundle_id" value="{{ question_bundle_id }}">
-<p><input type="submit" value="総合評価"></p>
+<p><input type="submit" value="総合評価" class="btn btn-info"></p>
 {% endif %}
+
+{% endblock %}

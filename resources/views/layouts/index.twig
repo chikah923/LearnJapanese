@@ -3,26 +3,19 @@
 {% block title %}日本語能力試験N1{% endblock %}
 
 {% block content %}
-
+<h4>
 対策したい分野を選んでください
+</h4>
 <br><br>
 
 <p>
-<a href="/questions?category=1">文字</a>
+<a href="/questions?category=1" class="btn btn-info btn-color-letter">文字</a>
+<a href="/questions?category=2" class="btn btn-info btn-color-language">語彙</a>
+<a href="/questions?category=3" class="btn btn-info btn-color-grammer">文法</a>
 </p>
 <p>
-<a href="/questions?category=2">語彙</a>
-</p>
-<p>
-<a href="/questions?category=3">文法</a>
-</p>
-<p>
-<a href="/questions?category=4">読解</a>
-</p>
-<p>
-<a href="/questions?category=5">聴解</a>
-</p>
-<p>
-<a href="/questions/exam">試験</a>
+<a href="/questions?category=4" class="btn btn-info btn-color-reading">読解</a>
+<a href="/questions?category=5" class="btn btn-info btn-color-listening">聴解</a>
+<a href="/questions/exam" class="btn btn-info btn-color-exam">試験</a>
 </p>
 {% endblock %}

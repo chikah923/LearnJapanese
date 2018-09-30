@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="ja">
 
-<nav class="navbar navbar-inverse">
-  <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gnavi">
-        <span class="sr-only">メニュー</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/">日本語能力試験N1対策</a>
-  </div>
+<nav class="navbar navbar-inverse navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gnavi">
+          <span class="sr-only">メニュー</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">日本語能力試験N1対策</a>
+    </div>
 
-  <div id="gnavi" class="collapse navbar-collapse">
-    <!-- Left Side Of Navbar -->
-      <ul class="nav navbar-nav">
-        &nbsp;
-      </ul>
+    <div id="gnavi" class="collapse navbar-collapse">
+      <!-- Left Side Of Navbar -->
+        <ul class="nav navbar-nav">
+          &nbsp;
+        </ul>
 
-    <!-- Right Side Of Navbar -->
-    <ul class="nav navbar-nav  navbar-right">
-      <li><a href="/allabout">使い方</a></li>
-      <li><a href="">よくある質問</a></li>
-      <li><a href="/admin/index">Admin Page</a></li>
+      <!-- Right Side Of Navbar -->
+      <ul class="nav navbar-nav  navbar-right">
+        <li><a href="/allabout">使い方</a></li>
+        <li><a href="">よくある質問</a></li>
+        <li><a href="/admin/index">Admin Page</a></li>
 
       <!-- Authentication Links -->
       {% if auth_guest() %}
@@ -30,12 +31,14 @@
         <li><a href="{{ route('register') }}">新規登録</a></li>
       {% else %}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
             Hello {{ username }}<span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
             <li>
                <a href="{{ route('logout') }}"
+                 onclick="event.preventDefault();
+                   document.getElementById('logout-form').submit();">
                  Logout
                </a>
 
@@ -48,7 +51,8 @@
          {% endif %}
        </ul>
      </div>
-   </nav>
+   </div>
+</nav>
 
 <head>
   <meta charset="utf-8">

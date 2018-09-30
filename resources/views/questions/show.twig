@@ -1,3 +1,10 @@
+{% extends('layouts/auth_default') %}
+
+{% block title %}{{ category_lang }}の練習問題{% endblock %}
+
+{% block content %}
+
+<h4>
 問題番号{{ question_number }}
 <br><br>
 {{ question.question }}
@@ -16,6 +23,9 @@
 <input type="radio" name="user_answer" value="3">3. {{ question.option_3 }}
 <br>
 <input type="radio" name="user_answer" value="4">4. {{ question.option_4 }}
+</h4>
 <br>
-<p><input type="submit" value="回答する"></p>
+<p><input type="submit" value="回答する" class="btn btn-info"></p>
 </form>
+
+{% endblock %}

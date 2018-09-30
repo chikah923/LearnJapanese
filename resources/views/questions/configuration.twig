@@ -3,6 +3,7 @@
 {% block title %}{{ category_lang }}の練習問題{% endblock %}
 
 {% block content %}
+<h4>
 {{ category_lang }}の練習問題
 <br><br>
 
@@ -10,11 +11,14 @@
 {{ csrf_field() }}
 <input type="hidden" name="category" value="{{ category }}">
 <p>問題数の設定<br>
+<br>
 <input type="radio" name="amount" value="1">10問
 <input type="radio" name="amount" value="2">20問
 <input type="radio" name="amount" value="3">30問
 </p>
-<p><input type="submit" value="設定を保存して問題を開始"></p>
+</h4>
+<br>
+<p><input type="submit" value="設定を保存して問題を開始" class="btn btn-info"></p>
 </form>
 
 {% endblock %}

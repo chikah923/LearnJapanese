@@ -61,6 +61,7 @@ class QuestionController
         }
 
         return view('questions.show')->with([
+            'category_lang' => trans('questions.category.'.$questions[0]->category),
             'question' => $questions[0],
             'question_number' => 1,
             'question_bundle_id' => $question_bundle->id,
@@ -90,6 +91,7 @@ class QuestionController
             'question_number' => $question_content->question_number,
             'true_or_false' => $true_or_false,
             'question' => $question,
+            'category_lang' => trans('questions.category.'.$question->category),
             'question_bundle_id' => $input['question_bundle_id'],
             'last_question_flag' => $last_question_flag,
         ]);

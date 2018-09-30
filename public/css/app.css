@@ -8350,3 +8350,18 @@ button.close {
   }
 }
 
+html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+.btn-color-exam {
+  background-color: #DAA520;
+  border-color: #DAA520;
+}
+
