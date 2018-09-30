@@ -1,0 +1,23 @@
+{% extends('layouts/auth_default') %}
+
+{% block title %}ログインしていないようです{% endblock %}
+
+{% block content %}
+ログインしていないようです
+<br>
+ログインすると、あとで間違えた問題を見直したり問題ごとにノートを残したりできるので便利です
+<br>
+メールアドレスと匿名のユーザ名だけで登録できます★
+<br>
+ログインせずに進むこともできます
+<br><br>
+<p>
+<a href="/register">新規登録</a>
+</p>
+<p>
+<a href="/login">ログイン</a>
+</p>
+<p>
+<a href="/questions_without_login?category={{ category }}">ログインせずに問題に進む</a>
+</p>
+{% endblock %}

@@ -26,8 +26,21 @@ class QuestionController
 
     public function showConfiguration(Request $request)
     {
+        if (is_null($request->user())){
+            return view ('questions.login_induce')->with([
+                'category' => $request->query('category'),
+            ]);
+        }
         return view ('questions.configuration')->with([
-            //'category' => trans('questions.'. $request->query('category')), //クエリパラメータから取得　あとでバリデーション
+            'category_lang' => trans('questions.category.'. $request->query('category')), //クエリパラメータから取得　あとでバリデーション
+            'category' => $request->query('category'),
+        ]);
+    }
+
+    public function showConfigurationWithoutLogin(Request $request)
+    {
+        return view ('questions.configuration')->with([
+            'category_lang' => trans('questions.category.'. $request->query('category')),
             'category' => $request->query('category'),
         ]);
     }
@@ -102,6 +115,7 @@ class QuestionController
         return view('questions.result')->with([
             'amount' => $question_bundle->amount,
             'category' => $question_bundle->category,
+            'category_lang' => trans('questions.category.'. $question_bundle->category),
             'correct_answer' => $correct_answer,
         ]);
     }

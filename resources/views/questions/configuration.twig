@@ -1,6 +1,9 @@
-{{trans('questions.category.'.category )}}
+{% extends('layouts/auth_default') %}
 
-{{ category }}の練習問題
+{% block title %}{{ category_lang }}の練習問題{% endblock %}
+
+{% block content %}
+{{ category_lang }}の練習問題
 <br><br>
 
 <form method="post" action="/questions/start">
@@ -13,3 +16,5 @@
 </p>
 <p><input type="submit" value="設定を保存して問題を開始"></p>
 </form>
+
+{% endblock %}

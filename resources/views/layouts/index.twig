@@ -1,19 +1,28 @@
-<!DOCTYPE html>
-<html lang="ja">
+{% extends('layouts/auth_default') %}
 
-<head>
-    <title>
-        日本語能力試験　練習
-    </title>
-</head>
+{% block title %}日本語能力試験N1{% endblock %}
 
-<body>
-日本語能力試験　練習
-<a href="#" onClick="window.alert('ログインしてください'); return false;">文字</a>
-<li><a href="/questions?category=1">文字</a></li>
-<li><a href="/questions?category=2">語彙</a></li>
-<li><a href="/questions?category=3">文法</a></li>
-<li><a href="/questions?category=4">読解</a></li>
-<li><a href="/questions?category=5">聴解</a></li>
-<li><a href="/questions/exam">試験</a></li>
-</body>
+{% block content %}
+
+対策したい分野を選んでください
+<br><br>
+
+<p>
+<a href="/questions?category=1">文字</a>
+</p>
+<p>
+<a href="/questions?category=2">語彙</a>
+</p>
+<p>
+<a href="/questions?category=3">文法</a>
+</p>
+<p>
+<a href="/questions?category=4">読解</a>
+</p>
+<p>
+<a href="/questions?category=5">聴解</a>
+</p>
+<p>
+<a href="/questions/exam">試験</a>
+</p>
+{% endblock %}
