@@ -8365,3 +8365,18 @@ body {
   border-color: #DAA520;
 }
 
+.correct {
+  color: #FF33FF;
+  font-weight: bold;
+}
+
+.wrong {
+  color: #3333CC;
+  font-weight: bold;
+}
+
+hr {
+  border-top: 4px double #8c8b8b;
+  text-align: center;
+}
+

@@ -2,17 +2,19 @@
 
 namespace App\Repositories;
 
-use App\Models\Db\QuestionBundle;
+use App\Models\Db\FavoriteQuestion;
 
-class QuestionBundleRepository
+class FavoriteQuestionRepository
 {
-    public function saveQuestionBundle($amount, $category, $user_id)
+    public function saveFavoriteQuestion($question_id, $user_id)
     {
-        return QuestionBundle::saveQuestionBundle($amount, $category, $user_id);
+        return FavoriteQuestion::saveFavoriteQuestion($question_id, $user_id);
     }
 
+/*
     public function saveCorrectAnswerNumber($question_bundle_id, $correct_answer)
     {
         return QuestionBundle::saveCorrectAnswerNumber($question_bundle_id, $correct_answer);
     }
+*/
 }

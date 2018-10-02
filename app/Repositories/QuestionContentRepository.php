@@ -17,9 +17,9 @@ class QuestionContentRepository
         return QuestionContent::getByBundleId($question_bundle_id);
     }
 
-    public function saveContent($question_bundle, $question, $question_number)
+    public function saveContent($question_bundle, $question, $question_number, $user_id)
     {
-        QuestionContent::saveContent($question_bundle, $question, $question_number);
+        QuestionContent::saveContent($question_bundle, $question, $question_number, $user_id);
     }
 
     public function getCorrectAnswerNumber($question_bundle_id)

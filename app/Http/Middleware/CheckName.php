@@ -2,8 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Illuminate\Http\Request;
 use Closure;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use View;
 
 class CheckName
@@ -14,6 +15,7 @@ class CheckName
         if (isset($userName)) {
             view()->share([
                 'username' => $userName->name,
+                'email' => $userName->email,
             ]);
         }
         return $next($request);

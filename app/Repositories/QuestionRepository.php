@@ -16,7 +16,7 @@ class QuestionRepository
         return Question::getById($id);
     }
 
-    public function getByUserConfig($amount, $category) //modelのメソッドと同じメソッド名になる、引数名分かりやすいものに変えるか
+    public function getByUserConfig($amount, $category) //modelのメソッドと同じメソッド名になるのはok
     {
         return Question::getByUserConfig($amount, $category);
     }

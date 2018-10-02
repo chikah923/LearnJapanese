@@ -8,22 +8,44 @@
 問題番号{{ question_number }}
 <br><br>
 {% if true_or_false == true %}
-正解です！
+<div class="correct">正解です！</div>
 {% else %}
-不正解です。。
+<div class="wrong">不正解です。。</div>
 {% endif %}
+<hr>
+問題文
+<br><br>
+　{{ sub_category_lang }}
+<br><br>
+　{{ question.question }}
+<br><br>
+1. {{ question.option_1 }}
+<br>
+2. {{ question.option_2 }}
+<br>
+3. {{ question.option_3 }}
+<br>
+4. {{ question.option_4 }}
 
 <br><br>
+正解 => {{ question_answer }}
+<hr>
 解説
 <br>
 {{ question.explanation }}
 
 <br><br>
-この問題をノートに登録する
+{% if user %}
+<form method="post" action="/questions/register_favorite">
+{{ csrf_field() }}
+<p><input type="submit" value="★ この問題をお気に入りに登録する" class="btn btn-info"></p>
+<input type="hidden" name="question_id" value="{{ question.id }}">
+</form>
 <br><br>
+{% endif %}
 </h4>
 
-{% if last_question_flag == false  %}
+{% if last_question_flag == false %}
 <form method="post" action="/questions/next">
 {{ csrf_field() }}
 <input type="hidden" name="question_bundle_id" value="{{ question_bundle_id }}">
@@ -33,7 +55,7 @@
 <form method="post" action="/questions/result">
 {{ csrf_field() }}
 <input type="hidden" name="question_bundle_id" value="{{ question_bundle_id }}">
-<p><input type="submit" value="総合評価" class="btn btn-info"></p>
+<p><input type="submit" value="総合評価" class="btn btn-info btn-color-exam"></p>
 {% endif %}
 
 {% endblock %}

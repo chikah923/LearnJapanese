@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $fillable = ['level', 'category', 'sub_category', 'question', 'option_1', 'option_2', 'option_3', 'option_4', 'answer','explanation'];
+    protected $guarded = [];
 
     public static function getById($id)
     {

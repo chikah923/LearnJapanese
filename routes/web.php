@@ -11,13 +11,14 @@
 |
 */
 
-Route::view('/', 'layouts/index');
+Route::get('/', 'QuestionController@getIndex');
 Route::get('/questions','QuestionController@showConfiguration');
 Route::get('/questions_without_login', 'QuestionController@showConfigurationWithoutLogin');
 Route::post('/questions/start', 'QuestionController@getFirstQuestion');
 Route::post('/questions/answer', 'QuestionController@postAnswer');
 Route::post('/questions/next', 'QuestionController@getQuestionFromSecond');
 Route::post('/questions/result', 'QuestionController@getResult');
+Route::post('/questions/register_favorite', 'QuestionController@registerFavorite');
 
 // Auth::routes();
 // Authentication Routes...

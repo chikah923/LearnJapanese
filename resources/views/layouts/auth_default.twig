@@ -21,15 +21,15 @@
 
       <!-- Right Side Of Navbar -->
       <ul class="nav navbar-nav  navbar-right">
-        <li><a href="/allabout">使い方</a></li>
-        <li><a href="">よくある質問</a></li>
-        <li><a href="/admin/index">Admin Page</a></li>
+        <li><a href="/howto">使い方</a></li>
+        <li><a href="/">よくある質問</a></li>
 
       <!-- Authentication Links -->
       {% if auth_guest() %}
         <li><a href="{{ route('login') }}">ログイン</a></li>
         <li><a href="{{ route('register') }}">新規登録</a></li>
       {% else %}
+        <li><a href="/mypage/index">マイページ</a></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
             Hello {{ username }}<span class="caret"></span>
@@ -39,7 +39,7 @@
                <a href="{{ route('logout') }}"
                  onclick="event.preventDefault();
                    document.getElementById('logout-form').submit();">
-                 Logout
+                 ログアウト
                </a>
 
                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -66,5 +66,6 @@
   <div class="container">
     {% block content %}{% endblock %}
   </div>
+  <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
