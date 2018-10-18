@@ -26,4 +26,9 @@ class QuestionContentRepository
     {
         return QuestionContent::getCorrectAnswerNumber($question_bundle_id);
     }
+
+    public function getFailedQuestion($user_id, $category)
+    {
+        return (new QuestionContent())->getFailedQuestion($user_id, $category);
+    }
 }

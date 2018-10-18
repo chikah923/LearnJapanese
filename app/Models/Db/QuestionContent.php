@@ -41,4 +41,17 @@ class QuestionContent extends Model
                 ->where('true_or_false', true)
                 ->count();
     }
+
+    public function getFailedQuestion($user_id, $category) //お気に入り取得とほぼ同じなのでBaseModelクラス作って共通化してもいいかも
+    {
+        $query = $this->select('question_contents.*')
+            ->where('user_id', $user_id)
+            ->where('true_or_false', false)
+            ->join('questions', function ($join) use ($category) {
+                $join->on('question_contents.question_id', '=', 'questions.id')
+                ->where('category', $category);
+            });
+        $query->orderBy('question_id');
+        return $query->get()->unique('question_id');
+    }
 }

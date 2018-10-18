@@ -32,30 +32,38 @@
 <hr>
 解説
 <br>
-{{ question.explanation }}
-
-<br><br>
-{% if user %}
-<form method="post" action="/questions/register_favorite">
-{{ csrf_field() }}
-<p><input type="submit" value="★ この問題をお気に入りに登録する" class="btn btn-info"></p>
-<input type="hidden" name="question_id" value="{{ question.id }}">
-</form>
-<br><br>
-{% endif %}
-</h4>
+<pre>{{ question.explanation }}</pre>
 
 {% if last_question_flag == false %}
 <form method="post" action="/questions/next">
 {{ csrf_field() }}
+{% if user %}
+
+<div class="cp_ipcheck">
+<p><input type="checkbox" name="favorite_flag" value="1" id="b_ch1"><label for="b_ch1">この問題をお気に入りに登録する場合、チェック</label></p>
+</div>
+<input type="hidden" name="question_id" value="{{ question.id }}">
+<br><br>
+{% endif %}
 <input type="hidden" name="question_bundle_id" value="{{ question_bundle_id }}">
 <p><input type="submit" value="次の問題へ" class="btn btn-info"></p>
 </form>
+
 {% elseif last_question_flag == true %}
 <form method="post" action="/questions/result">
 {{ csrf_field() }}
+{% if user %}
+
+<div class="cp_ipcheck">
+<p><input type="checkbox" name="favorite_flag" value="1" id="b_ch1"><label for="b_ch1">この問題をお気に入りに登録する場合、チェック</label></p>
+</div>
+<input type="hidden" name="question_id" value="{{ question.id }}">
+<br><br>
+{% endif %}
 <input type="hidden" name="question_bundle_id" value="{{ question_bundle_id }}">
 <p><input type="submit" value="総合評価" class="btn btn-info btn-color-exam"></p>
 {% endif %}
 
+</h4>
 {% endblock %}
+

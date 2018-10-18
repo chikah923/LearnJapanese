@@ -8380,3 +8380,66 @@ hr {
   text-align: center;
 }
 
+.cp_ipcheck {
+  width: 90%;
+  margin: 2em auto;
+  text-align: left;
+}
+
+.cp_ipcheck input[type='checkbox'] {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+.cp_ipcheck label {
+  position: relative;
+  display: inline-block;
+  margin-right: 30px;
+  padding-right: 10px;
+  padding-left: 35px;
+  cursor: pointer;
+}
+
+.cp_ipcheck label::before {
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  display: block;
+  width: 24px;
+  height: 24px;
+  content: ' ';
+  border: 2px solid #da3c41;
+}
+
+.cp_ipcheck input[type='checkbox'] + label::before {
+  border-radius: 4px;
+}
+
+.cp_ipcheck input[type='checkbox']:checked + label {
+  padding-left: 10px;
+  color: #ffffff;
+}
+
+.cp_ipcheck input[type='checkbox']:checked + label::before {
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #da3c41;
+}
+
+/* Transition */
+
+.cp_ipcheck label,
+.cp_ipcheck label::before {
+  -webkit-transition: 0.25s all ease;
+  transition: 0.25s all ease;
+}
+
+pre {
+  font-size: 1em;
+  border: 0;
+  background-color: transparent;
+}
+

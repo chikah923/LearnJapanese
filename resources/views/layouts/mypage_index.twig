@@ -1,0 +1,14 @@
+{% extends('layouts/auth_default') %}
+
+{% block title %}日本語能力試験N1 マイページ{% endblock %}
+
+{% block content %}
+
+<h4>
+マイページ
+</h4>
+<br><br>
+<p><a href="/mypage/favorite_questions" class="btn btn-info btn-color-letter">お気に入りに登録した問題リスト</a></p>
+<p><a href="/mypage/failed_questions" class="btn btn-info btn-color-letter">間違えた問題リスト</a></p>
+
+{% endblock %}

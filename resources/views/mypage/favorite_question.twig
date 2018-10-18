@@ -1,0 +1,30 @@
+{% extends('../layouts/auth_default') %}
+
+{% block title %}お気に入りに追加した問題{% endblock %}
+
+{% block content %}
+<h4>
+{{ category_lang }}のお気に入り問題　　{% if count %}全{{ count }}問{% endif %}
+<br><br>
+{% for favorite_question in favorite_questions %}
+{{ loop.index }}<div class="correct">　{{ favorite_question.question.question }}</div>
+<br><br>
+　1. {{ favorite_question.question.option_1 }}
+<br>
+　2. {{ favorite_question.question.option_2 }}
+<br>
+　3. {{ favorite_question.question.option_3 }}
+<br>
+　4. {{ favorite_question.question.option_4 }}
+<br><br>
+解説
+<br><br>
+　{{ favorite_question.question.explanation }}
+<hr>
+{% endfor %}
+{% if favorite_questions is empty %}
+<br><br>
+まだお気に入りはありません
+{% endif %}
+</h4>
+{% endblock %}

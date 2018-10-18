@@ -18,7 +18,12 @@ Route::post('/questions/start', 'QuestionController@getFirstQuestion');
 Route::post('/questions/answer', 'QuestionController@postAnswer');
 Route::post('/questions/next', 'QuestionController@getQuestionFromSecond');
 Route::post('/questions/result', 'QuestionController@getResult');
-Route::post('/questions/register_favorite', 'QuestionController@registerFavorite');
+
+Route::get('/mypage/index', 'MyPageController@getIndex');
+Route::get('/mypage/favorite_questions', 'MyPageController@getFavoriteIndex');
+Route::get('/mypage/favorite', 'MyPageController@getFavoriteQuestion');
+Route::get('/mypage/failed_questions', 'MyPageController@getFailedIndex');
+Route::get('/mypage/failed', 'MyPageController@getFailedQuestion');
 
 // Auth::routes();
 // Authentication Routes...

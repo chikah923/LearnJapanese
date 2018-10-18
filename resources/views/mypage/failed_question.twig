@@ -1,0 +1,30 @@
+{% extends('../layouts/auth_default') %}
+
+{% block title %}間違えた問題{% endblock %}
+
+{% block content %}
+<h4>
+{{ category_lang }}で間違えた問題　　{% if count %}全{{ count }}問{% endif %}
+<br><br>
+{% for failed_question in failed_questions %}
+{{ loop.index }}<div class="wrong">　{{ failed_question.question.question }}</div>
+<br><br>
+　1. {{ failed_question.question.option_1 }}
+<br>
+　2. {{ failed_question.question.option_2 }}
+<br>
+　3. {{ failed_question.question.option_3 }}
+<br>
+　4. {{ failed_question.question.option_4 }}
+<br><br>
+解説
+<br><br>
+　{{ failed_question.question.explanation }}
+<hr>
+{% endfor %}
+{% if failed_questions is empty %}
+<br><br>
+まだ間違えた問題はありません！
+{% endif %}
+</h4>
+{% endblock %}

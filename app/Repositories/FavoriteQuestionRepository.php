@@ -11,10 +11,8 @@ class FavoriteQuestionRepository
         return FavoriteQuestion::saveFavoriteQuestion($question_id, $user_id);
     }
 
-/*
-    public function saveCorrectAnswerNumber($question_bundle_id, $correct_answer)
+    public function getFavoriteQuestion($user_id, $category)
     {
-        return QuestionBundle::saveCorrectAnswerNumber($question_bundle_id, $correct_answer);
+        return (new FavoriteQuestion())->getFavoriteQuestion($user_id, $category);
     }
-*/
 }

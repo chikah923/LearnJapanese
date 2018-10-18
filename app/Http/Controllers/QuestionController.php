@@ -121,7 +121,10 @@ class QuestionController extends Controller
     {
         $input = $request->all();
         $question_content = $this->question_content_repository->getByBundleId($input['question_bundle_id']);
+        $this->checkAndSaveFavoriteQuestion($input);
+
         return view('questions.show')->with([
+            'category_lang' => trans('questions.category.'.$question_content->question->category),
             'sub_category_lang' => trans('questions.sub_category.'.$question_content->question->sub_category),
             'question' => $question_content->question,
             'question_number' => $question_content->question_number,
@@ -132,6 +135,7 @@ class QuestionController extends Controller
     public function getResult(Request $request)
     {
         $input = $request->all();
+        $this->checkAndSaveFavoriteQuestion($input);
         $correct_answer = $this->question_content_repository->getCorrectAnswerNumber($input['question_bundle_id']);
         $question_bundle = $this->question_bundle_repository->saveCorrectAnswerNumber($input['question_bundle_id'], $correct_answer);
 
@@ -143,11 +147,12 @@ class QuestionController extends Controller
         ]);
     }
 
-    public function registerFavorite(Request $request)
+
+    private function checkAndSaveFavoriteQuestion($input)
     {
-        $question_id = $request->all()['question_id'];
-        $this->favorite_question_repository->saveFavoriteQuestion($question_id, Auth::user()->id);
-        return;
+        if (isset($input['favorite_flag']) && !is_null($input['favorite_flag'])) {
+            $this->favorite_question_repository->saveFavoriteQuestion($input['question_id'], Auth::user()->id);
+        }
     }
 
     public function registerQuestion(Request $request)

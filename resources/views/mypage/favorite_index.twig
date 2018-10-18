@@ -1,0 +1,21 @@
+{% extends('layouts/auth_default') %}
+
+{% block title %}日本語能力試験N1{% endblock %}
+
+{% block content %}
+<h4>
+お気に入りの問題のカテゴリを選んでください
+</h4>
+<br><br>
+
+<p>
+<a href="/mypage/favorite?category=1" class="btn btn-info btn-color-letter">文字</a>
+<a href="/mypage/favorite?category=2" class="btn btn-info btn-color-letter">語彙</a>
+<a href="/mypage/favorite?category=3" class="btn btn-info btn-color-letter">文法</a>
+</p>
+
+<p>
+<a href="/mypage/favorite?category=4" class="btn btn-info btn-color-letter">読解</a>
+<a href="/mypage/favorite?category=5" class="btn btn-info btn-color-letter">聴解</a>
+</p>
+{% endblock %}
